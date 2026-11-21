@@ -17,7 +17,15 @@
             "..\\Elite Dangerous Tools\\Observatory Core"
         ]
     ],
-    "persist": "plugins",
+    "pre_install": [
+        "# Observatory keeps core and plugin settings in Observatory.config next to the exe.",
+        "# Seed it so scoop persists it as a file, not a folder. Observatory accepts {} and fills in defaults.",
+        "if (!(Test-Path \"$persist_dir\\Observatory.config\") -and !(Test-Path \"$dir\\Observatory.config\")) { Set-Content \"$dir\\Observatory.config\" '{}' -NoNewline }"
+    ],
+    "persist": [
+        "plugins",
+        "Observatory.config"
+    ],
     "checkver": {
         "url": "https://api.github.com/repos/Xjph/ObservatoryCore/releases/latest",
         "jsonpath": "$.tag_name",

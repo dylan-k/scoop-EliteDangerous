@@ -1,0 +1,36 @@
+{
+    "version": "4.2.4055.570",
+    "description": "EliteG19s: companion app for Elite Dangerous with Logitech LCD, web and VoiceAttack support.",
+    "homepage": "https://github.com/MagicMau/EliteG19s",
+    "license": "Unknown",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/MagicMau/EliteG19s/releases/download/v4.2.4055.570/EliteG19s.4.2.4055.570.msi",
+            "hash": "c3add9a56bfc56393a59192b2b1d58aa91602c002f0718fcd579ee60d8e83e12",
+            "extract_dir": "Programs\\EliteG19s"
+        }
+    },
+    "shortcuts": [
+        [
+            "EliteG19s.Windows.exe",
+            "..\\Elite Dangerous Tools\\EliteG19s"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/MagicMau/EliteG19s/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/MagicMau/EliteG19s/releases/download/v$version/EliteG19s.$version.msi",
+                "extract_dir": "Programs\\EliteG19s"
+            }
+        }
+    },
+    "notes": [
+        "Needs the .NET 10 Desktop Runtime (scoop install extras/windowsdesktop-runtime).",
+        "Settings live in %AppData%\\EliteG19s, outside the app folder."
+    ]
+}

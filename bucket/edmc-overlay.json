@@ -1,0 +1,36 @@
+{
+    "version": "1.0.6",
+    "description": "EDMC plugin: draws text and shapes over the game window for other plugins (EDMCOverlay).",
+    "homepage": "https://github.com/inorton/EDMCOverlay",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/inorton/EDMCOverlay/releases/download/1.0.6/EDMCOverlay-1.0.6.msi",
+            "hash": "bbda36e4332e9f182b308ea2e1552e24b1abd33ede0443a8ed6fe5f948df4ea0",
+            "extract_dir": "EDMCOverlay"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMCOverlay\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMCOverlay\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMCOverlay\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/inorton/EDMCOverlay/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/inorton/EDMCOverlay/releases/download/$version/EDMCOverlay-$version.msi",
+                "extract_dir": "EDMCOverlay"
+            }
+        }
+    }
+}

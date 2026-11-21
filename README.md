@@ -20,10 +20,10 @@ Manifests
 ---------
 
 Apps
-: `edmc`, `eddi`, `eddiscovery`, `observatory-core`, `ed-materials-helper`, `ed-min-launcher`, `edjp`, `od-explorer`, `srvsurvey`
+: `edmc`, `eddi`, `eddiscovery`, `observatory-core`, `ed-materials-helper`, `ed-min-launcher`, `edjp`, `od-explorer`, `srvsurvey`, `ed-scout`, `eliteg19s`, `edcopilot`
 
 EDMC plugins
-: `edmc-canonn`, `edmc-artemis-scanner-tracker`, `edmc-screenshot`, `edmc-edr`, `edmc-edsm-rse`, `edmc-spansh-router`
+: `edmc-canonn`, `edmc-artemis-scanner-tracker`, `edmc-screenshot`, `edmc-edr`, `edmc-edsm-rse`, `edmc-spansh-router`, `edmc-overlay`, `edmc-hits`, `edmc-edmfat`, `edmc-l3-37`, `edmc-bgs-tally`
 
 Observatory plugins
 : `observatory-plugin-bioinsights`, `-boxelstats`, `-codexentries`, `-colliders`, `-evaluator`, `-signalmonitor`, `-telegram`
@@ -34,4 +34,7 @@ Notes
 
 - Version checks for GitHub-hosted apps read the release tag from the GitHub API (`checkver.url` plus `jsonpath`), because the older HTML scraping stopped matching GitHub's release pages.
 - `eddi` extracts the per-user installer; it does not install EDDI's VoiceAttack plugin.
+- `observatory-core` persists `Observatory.config`, which holds Observatory's own settings and every plugin's settings.
+- `edcopilot` keeps most settings in its app folder. It persists the ini files and user folders, but runtime `settings_*.json` files reset on a scoop update.
+- `edmc-bgs-tally` keeps its `otherdata` and `backups` folders through update and uninstall.
 - The edjp page no longer lists `codexentries` and `signalmonitor`, so their version checks fail and they stay at their last versions.

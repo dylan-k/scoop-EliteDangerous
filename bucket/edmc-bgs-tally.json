@@ -1,0 +1,40 @@
+{
+    "version": "5.6.1",
+    "description": "EDMC plugin: tracks and reports your BGS, Powerplay, Colonisation and Thargoid War work (BGS-Tally).",
+    "homepage": "https://github.com/aussig/BGS-Tally",
+    "license": "MIT",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/aussig/BGS-Tally/releases/download/5.6.1/BGS-Tally.zip",
+            "hash": "2976378ab99165396f13983b1eb5789ac1bfa7a71096f4096bd0a097a17e00c4"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\BGS-Tally\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\BGS-Tally\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": [
+            "# Scoop runs this on update too. Keep the plugin's activity data and backups.",
+            "Get-ChildItem \"$env:LocalAppData\\EDMarketConnector\\plugins\\BGS-Tally\" -ErrorAction SilentlyContinue |",
+            "    Where-Object { $_.Name -notin 'otherdata', 'backups' } |",
+            "    Remove-Item -Recurse -Force -ErrorAction SilentlyContinue"
+        ]
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/aussig/BGS-Tally/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/aussig/BGS-Tally/releases/download/$version/BGS-Tally.zip"
+            }
+        }
+    },
+    "notes": "BGS-Tally keeps its activity data in otherdata and backups inside its plugin folder. Uninstall and update leave those two folders in place."
+}

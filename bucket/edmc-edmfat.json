@@ -1,0 +1,36 @@
+{
+    "version": "0.33",
+    "description": "EDMC plugin: Minor Faction Activity Tracker, summarizes your BGS work by faction (EDMFAT).",
+    "homepage": "https://github.com/anthonylangsworth/EDMFAT",
+    "license": "GPL-3.0-only",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/anthonylangsworth/EDMFAT/releases/download/v0.33/edmfat.msi",
+            "hash": "9daa91de33e4dfc0ddcd1d11600b251338d8d3d46eddb1ccccc4bc63ed7a5a51",
+            "extract_dir": "LocalApp\\EDMarketConnector\\Plugins\\EDMFAT"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMFAT\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMFAT\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMFAT\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/anthonylangsworth/EDMFAT/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/anthonylangsworth/EDMFAT/releases/download/v$version/edmfat.msi",
+                "extract_dir": "LocalApp\\EDMarketConnector\\Plugins\\EDMFAT"
+            }
+        }
+    }
+}

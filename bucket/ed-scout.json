@@ -1,0 +1,30 @@
+{
+    "version": "1.9.1",
+    "description": "ED Scout: lists unexplored and high-value bodies in each system you jump to.",
+    "homepage": "https://github.com/joncage/ed-scout",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/joncage/ed-scout/releases/download/v1.9.1/EDScout.exe",
+            "hash": "811d87e6c0a79622aae82d630aac1ba3798affeeb5c64fe156864aa3d3bac791"
+        }
+    },
+    "shortcuts": [
+        [
+            "EDScout.exe",
+            "..\\Elite Dangerous Tools\\ED Scout"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/joncage/ed-scout/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/joncage/ed-scout/releases/download/v$version/EDScout.exe"
+            }
+        }
+    }
+}

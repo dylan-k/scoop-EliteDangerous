@@ -1,0 +1,51 @@
+{
+    "version": "1.11.768",
+    "description": "EDCoPilot: voice-driven in-game companion for Elite Dangerous.",
+    "homepage": "https://www.razzafrag.com/",
+    "license": "Freeware",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Razzafrag/EDCoPilot-Installer/releases/download/v1.11.768/EDCoPilot.v1.11.768.msi",
+            "hash": "47caa62b55fdcdcfbab85889d1e8e0ad798c2cd956e895356335a9747eded2dc"
+        }
+    },
+    "pre_install": [
+        "# The MSI copies itself into the admin image; drop it to save 400 MB.",
+        "Remove-Item \"$dir\\EDCoPilot.v$version.msi\" -Force -ErrorAction SilentlyContinue",
+        "# EDCoPilot writes these on first run. Seed empty ones so scoop persists them as files, not folders.",
+        "'EDCoPilot.ini', 'edcopilotgui.ini' | ForEach-Object {",
+        "    if (!(Test-Path \"$persist_dir\\$_\") -and !(Test-Path \"$dir\\$_\")) { New-Item -ItemType File -Path \"$dir\\$_\" | Out-Null }",
+        "}"
+    ],
+    "shortcuts": [
+        [
+            "LaunchEDCoPilot.exe",
+            "..\\Elite Dangerous Tools\\EDCoPilot"
+        ]
+    ],
+    "persist": [
+        "User custom files",
+        "Session summaries",
+        "backup files",
+        "logs",
+        "EDCoPilot.ini",
+        "edcopilotgui.ini"
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/Razzafrag/EDCoPilot-Installer/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Razzafrag/EDCoPilot-Installer/releases/download/v$version/EDCoPilot.v$version.msi"
+            }
+        }
+    },
+    "notes": [
+        "EDCoPilot keeps most settings in its own folder. This manifest persists the ini files and user folders only;",
+        "settings_*.json files written at runtime (settings_ui.json, settings_voice.json and others) reset on a scoop update.",
+        "Back up the app folder before updating, or let EDCoPilot's own updater handle updates."
+    ]
+}

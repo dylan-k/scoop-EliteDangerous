@@ -1,0 +1,37 @@
+{
+    "version": "1.1.2",
+    "description": "EDMC plugin: Hostile Interaction Tracking System, warns of dangerous systems on your route (HITS).",
+    "homepage": "https://github.com/inorton/EDMCHits",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/inorton/EDMCHits/releases/download/1.1.2/HITS-1.1.2.msi",
+            "hash": "efaf413a99fac6b9b76461d812d3a566723dd1648204f73d6cf7a526b491a8a2",
+            "extract_dir": "HITS"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/inorton/EDMCHits/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/inorton/EDMCHits/releases/download/$version/HITS-$version.msi",
+                "extract_dir": "HITS"
+            }
+        }
+    },
+    "notes": "HITS depends on EDMCOverlay to show its warnings in game (scoop install EliteDangerous/edmc-overlay)."
+}

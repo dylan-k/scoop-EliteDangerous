@@ -1,0 +1,37 @@
+{
+    "version": "110",
+    "description": "EDMC plugin: L3-37 multi tool (materials, fleet, chat and route helpers).",
+    "homepage": "https://github.com/WaferMouse/L3-37",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/WaferMouse/L3-37/releases/download/110/edmc-L3-37.zip",
+            "hash": "ef1c8aa9764526614dff06591c4c938659c70c76e69c49c377203f6d5d14b6a7",
+            "extract_dir": "edmc-L3-37"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\edmc-L3-37\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\edmc-L3-37\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\edmc-L3-37\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/WaferMouse/L3-37/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?(\\d+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/WaferMouse/L3-37/releases/download/$version/edmc-L3-37.zip",
+                "extract_dir": "edmc-L3-37"
+            }
+        }
+    },
+    "notes": "L3-37 has had no release since 2021 and may not load in EDMC 6."
+}
