@@ -22,6 +22,9 @@ Manifests
 Apps
 : `edmc`, `eddi`, `eddiscovery`, `observatory-core`, `ed-materials-helper`, `ed-min-launcher`, `edjp`, `od-explorer`, `srvsurvey`, `ed-scout`, `eliteg19s`, `edcopilot`
 
+Runtimes
+: `aspnetcore-runtime-lts` (machine-wide, run scoop elevated)
+
 EDMC plugins
 : `edmc-canonn`, `edmc-artemis-scanner-tracker`, `edmc-screenshot`, `edmc-edr`, `edmc-edsm-rse`, `edmc-spansh-router`, `edmc-overlay`, `edmc-hits`, `edmc-edmfat`, `edmc-l3-37`, `edmc-bgs-tally`
 
@@ -37,4 +40,5 @@ Notes
 - `observatory-core` persists `Observatory.config`, which holds Observatory's own settings and every plugin's settings.
 - `edcopilot` keeps most settings in its app folder. It persists the ini files and user folders, but runtime `settings_*.json` files reset on a scoop update.
 - `edmc-bgs-tally` keeps its `otherdata` and `backups` folders through update and uninstall.
+- `eliteg19s` tracks the developer's site (apps.magicmau.nl), which is also the app's own update feed. GitHub releases lag behind it.
 - The edjp page no longer lists `codexentries` and `signalmonitor`, so their version checks fail and they stay at their last versions.

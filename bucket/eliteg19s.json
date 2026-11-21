@@ -1,12 +1,12 @@
 {
-    "version": "4.2.4055.570",
+    "version": "4.4.4342.872",
     "description": "EliteG19s: companion app for Elite Dangerous with Logitech LCD, web and VoiceAttack support.",
-    "homepage": "https://github.com/MagicMau/EliteG19s",
+    "homepage": "https://apps.magicmau.nl/EliteG19s/",
     "license": "Unknown",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/MagicMau/EliteG19s/releases/download/v4.2.4055.570/EliteG19s.4.2.4055.570.msi",
-            "hash": "c3add9a56bfc56393a59192b2b1d58aa91602c002f0718fcd579ee60d8e83e12",
+            "url": "https://apps.magicmau.nl/EliteG19s/EliteG19s.4.4.4342.872.msi",
+            "hash": "c8a347d937ef27135dd8a7f8364d07512794add7117109f22e34dc79dc08002d",
             "extract_dir": "Programs\\EliteG19s"
         }
     },
@@ -17,20 +17,26 @@
         ]
     ],
     "checkver": {
-        "url": "https://api.github.com/repos/MagicMau/EliteG19s/releases/latest",
-        "jsonpath": "$.tag_name",
-        "regex": "^v([\\d.]+)"
+        "url": "https://apps.magicmau.nl/EliteG19s/",
+        "regex": "EliteG19s\\.([\\d.]+)\\.msi"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/MagicMau/EliteG19s/releases/download/v$version/EliteG19s.$version.msi",
+                "url": "https://apps.magicmau.nl/EliteG19s/EliteG19s.$version.msi",
                 "extract_dir": "Programs\\EliteG19s"
             }
         }
     },
+    "suggest": {
+        ".NET Desktop Runtime": "extras/windowsdesktop-runtime-lts",
+        "ASP.NET Core Runtime": "EliteDangerous/aspnetcore-runtime-lts"
+    },
     "notes": [
-        "Needs the .NET 10 Desktop Runtime (scoop install extras/windowsdesktop-runtime).",
-        "Settings live in %AppData%\\EliteG19s, outside the app folder."
+        "Needs the .NET 10 Desktop and ASP.NET Core runtimes (see suggest; both install machine-wide from an elevated shell).",
+        "Settings live in %AppData%\\EliteG19s, outside the app folder.",
+        "This manifest tracks the developer's site, which is also the app's own update feed; GitHub releases lag behind it.",
+        "If EliteG19s offers an update on launch, decline it and run 'scoop update eliteg19s' instead; accepting installs a second copy",
+        "under %LocalAppData%\\Programs\\EliteG19s."
     ]
 }

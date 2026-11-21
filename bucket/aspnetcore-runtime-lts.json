@@ -1,0 +1,46 @@
+{
+    "version": "10.0.15",
+    "description": "Microsoft ASP.NET Core Runtime LTS (Long-term support). Needed by EliteG19s 4.4 and later.",
+    "homepage": "https://dotnet.microsoft.com/download/dotnet",
+    "license": "MIT",
+    "notes": "This runs Microsoft's installer, which installs the runtime machine-wide. Run scoop from an elevated shell. You can then remove the installer with 'scoop uninstall aspnetcore-runtime-lts'; the runtime stays installed.",
+    "architecture": {
+        "64bit": {
+            "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/10.0.15/aspnetcore-runtime-10.0.15-win-x64.exe",
+            "hash": "sha512:716a82305a97b74fed21a982af4ca0f6d2c68489b6bfd1a88d565f8dbc73591873eb6c9e5289af6686e1b0a8090501ee920bb65e83dd506ff71f6ad932edc8d1"
+        },
+        "32bit": {
+            "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/10.0.15/aspnetcore-runtime-10.0.15-win-x86.exe",
+            "hash": "sha512:f370247c6630eed64f7964f232cf4fbf694d505f174a13bf00c19b2d49d42b4a4eb7d63b99ecb9ee2fb17d3d06b9eb7a3d4e80b3e9185240f22134f467efc7eb"
+        },
+        "arm64": {
+            "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/10.0.15/aspnetcore-runtime-10.0.15-win-arm64.exe",
+            "hash": "sha512:73cfeca16696cd63d7a9b1fb7a5dd2b9069096ceeab0d95e2df313b33c022c1b96f7d29de5b6104d42ef910ef41c4b45355202aa280eff3704283b3853844b62"
+        }
+    },
+    "pre_install": "if (!(is_admin)) { error 'Admin privileges are required.'; break }",
+    "installer": {
+        "script": "Invoke-ExternalCommand \"$dir\\$fname\" -ArgumentList '/install', '/quiet', '/norestart' -RunAs | Out-Null"
+    },
+    "checkver": {
+        "url": "https://builds.dotnet.microsoft.com/dotnet/release-metadata/releases-index.json",
+        "jsonpath": "$.releases-index[?(@.support-phase == 'active' && @.release-type == 'lts')].latest-runtime",
+        "regex": "([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/$version/aspnetcore-runtime-$version-win-x64.exe"
+            },
+            "32bit": {
+                "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/$version/aspnetcore-runtime-$version-win-x86.exe"
+            },
+            "arm64": {
+                "url": "https://builds.dotnet.microsoft.com/dotnet/aspnetcore/Runtime/$version/aspnetcore-runtime-$version-win-arm64.exe"
+            }
+        },
+        "hash": {
+            "url": "https://builds.dotnet.microsoft.com/dotnet/checksums/$version-sha.txt"
+        }
+    }
+}
