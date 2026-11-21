@@ -1,18 +1,19 @@
 {
-    "version": "7.6.1",
+    "version": "7.8.0",
     "description": "EDMC plugin: collect accurate science data from the galaxy, and coordinates missions.",
     "homepage": "https://github.com/canonn-science/EDMC-Canonn",
     "license": "GPL-3.0",
     "depends": "edmc",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/canonn-science/EDMC-Canonn/archive/refs/tags/7.6.1.zip",
-            "hash": "a07d4743410471d1188f9011662aa29dfe3de477f07fa0ea06eae04fc44a9af8"
+            "url": "https://github.com/canonn-science/EDMC-Canonn/archive/refs/tags/7.8.0.zip",
+            "hash": "041f040befc48029fa9b3b7beeeb58e17abc7be42169a5e2245754b44a96d43d"
         }
     },
     "checkver": {
-        "url": "https://github.com/canonn-science/EDMC-Canonn",
-        "regex": "/releases/tag/?([\\d.]+[\\-a-z]*)"
+        "url": "https://api.github.com/repos/canonn-science/EDMC-Canonn/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^([\\d.]+[\\-a-z]*)"
     },
     "installer": {
         "script": "Copy-Item -Path \"$dir\\EDMC-Canonn-$version\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\" -Recurse -Force -ErrorAction SilentlyContinue"

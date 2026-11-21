@@ -1,0 +1,34 @@
+{
+    "version": "3.4.2",
+    "description": "EDMC plugin: Elite Dangerous Remote (EDR) crime reports and bounty tracking.",
+    "homepage": "https://github.com/lekeno/edr",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/lekeno/edr/releases/download/v3.4.2/EDRv3.4.2.zip",
+            "hash": "97a1ad04193f3cca898b75cd4997193544983531fb1803902271f00990477fb8"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDR\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDR\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDR\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/lekeno/edr/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/lekeno/edr/releases/download/v$version/EDRv$version.zip"
+            }
+        }
+    }
+}

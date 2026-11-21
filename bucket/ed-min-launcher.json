@@ -1,5 +1,5 @@
 {
-    "version": "0.13.0",
+    "version": "0.14.0",
     "description": "Elite: Dangerous Minimal Launcher. Alternate game launcher bypassing the initial game launch UI, with accessory tools autolaunch.",
     "homepage": "https://github.com/rfvgyhn/min-ed-launcher",
     "license": {
@@ -12,9 +12,9 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/rfvgyhn/min-ed-launcher/releases/download/v0.13.0/min-ed-launcher_v0.13.0_win-x64.zip",
-            "hash": "a60f3106b1dfb604890b4b5d597815dd3f06cfcae5de01c82fa714eb04c46392",
-            "extract_dir": "min-ed-launcher_v0.13.0_win-x64"
+            "url": "https://github.com/rfvgyhn/min-ed-launcher/releases/download/v0.14.0/min-ed-launcher_v0.14.0_win-x64.zip",
+            "hash": "4330fabad9d3afda864015c3ea509e5bafd838e95c4098ec2697d5c32c3dbe19",
+            "extract_dir": "min-ed-launcher_v0.14.0_win-x64"
         }
     },
     "bin": [
@@ -24,8 +24,9 @@
         ]
     ],
     "checkver": {
-        "url": "https://github.com/rfvgyhn/min-ed-launcher",
-        "regex": "/releases/tag/v?([\\d.]+)"
+        "url": "https://api.github.com/repos/rfvgyhn/min-ed-launcher/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {

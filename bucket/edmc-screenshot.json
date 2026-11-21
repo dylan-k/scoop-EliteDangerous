@@ -11,8 +11,9 @@
         }
     },
     "checkver": {
-        "url": "https://github.com/NoFoolLikeOne/EDMC-Screenshot",
-        "regex": "/releases/tag/?([\\d.]+[\\-a-z]*)"
+        "url": "https://api.github.com/repos/NoFoolLikeOne/EDMC-Screenshot/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^([\\d.]+[\\-a-z]*)"
     },
     "installer": {
         "script": "Copy-Item -Path \"$dir\\EDMC-Screenshot-$version\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Screenshot\" -Recurse -Force -ErrorAction SilentlyContinue"

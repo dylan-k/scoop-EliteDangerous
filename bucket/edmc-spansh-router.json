@@ -1,0 +1,34 @@
+{
+    "version": "3.1.0",
+    "description": "EDMC plugin: Spansh neutron and road-to-riches route plotting.",
+    "homepage": "https://github.com/CMDR-Kiel42/EDMC_SpanshRouter",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/CMDR-Kiel42/EDMC_SpanshRouter/releases/download/v3.1.0/EDMC_SpanshRouter_310.zip",
+            "hash": "8e4cd529f7c4a900f3b0f83074a25346d25b113e763aa2a18e9b266912a49525"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC_SpanshRouter\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC_SpanshRouter\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC_SpanshRouter\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/CMDR-Kiel42/EDMC_SpanshRouter/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/CMDR-Kiel42/EDMC_SpanshRouter/releases/download/v$version/EDMC_SpanshRouter_$cleanVersion.zip"
+            }
+        }
+    }
+}

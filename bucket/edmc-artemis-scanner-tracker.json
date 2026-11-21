@@ -11,8 +11,9 @@
         }
     },
     "checkver": {
-        "url": "https://github.com/Balvald/ArtemisScannerTracker",
-        "regex": "/releases/tag/v?([\\d.]+[\\-a-z]*)"
+        "url": "https://api.github.com/repos/Balvald/ArtemisScannerTracker/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^v?([\\d.]+[\\-a-z]*)"
     },
     "installer": {
         "script": "Copy-Item -Path \"$dir\\ArtemisScannerTracker-$version\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\ArtemisScannerTracker\" -Recurse -Force -ErrorAction SilentlyContinue"

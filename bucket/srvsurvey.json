@@ -1,0 +1,30 @@
+{
+    "version": "2.0.95.59",
+    "description": "SrvSurvey: Elite Dangerous overlay for surface surveys, bio signals and Guardian sites.",
+    "homepage": "https://github.com/njthomson/SrvSurvey",
+    "license": "Unknown",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/njthomson/SrvSurvey/releases/download/2.0.95.59/SrvSurvey-2.0.95.59.zip",
+            "hash": "d8aebe360f181e839b4657f1c9263a7404d8e0963ef83a233ba40e6a4e131a25"
+        }
+    },
+    "shortcuts": [
+        [
+            "Launcher.exe",
+            "..\\Elite Dangerous Tools\\SrvSurvey"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/njthomson/SrvSurvey/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/njthomson/SrvSurvey/releases/download/$version/SrvSurvey-$version.zip"
+            }
+        }
+    }
+}

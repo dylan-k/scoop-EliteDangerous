@@ -1,0 +1,31 @@
+{
+    "version": "3.15.13",
+    "description": "Elite Dangerous Odyssey Materials Helper: tracks materials and engineering blueprints (portable).",
+    "homepage": "https://github.com/jixxed/ed-odyssey-materials-helper",
+    "license": "Unknown",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/jixxed/ed-odyssey-materials-helper/releases/download/3.15.13/edomh-3.15.13.portable.zip",
+            "hash": "ea66add2ed03bc6249f6638e51f4b65a68a64a3c856d2380b32f67668d5bbbdd"
+        }
+    },
+    "shortcuts": [
+        [
+            "Elite Dangerous Odyssey Materials Helper.exe",
+            "..\\Elite Dangerous Tools\\Materials Helper"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/jixxed/ed-odyssey-materials-helper/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/jixxed/ed-odyssey-materials-helper/releases/download/$version/edomh-$version.portable.zip"
+            }
+        }
+    },
+    "notes": "User data lives in %LocalAppData%\\odyssey-materials-helper."
+}

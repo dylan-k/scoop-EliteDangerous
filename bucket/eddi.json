@@ -1,0 +1,34 @@
+{
+    "version": "5.0.5",
+    "description": "EDDI: speaks Elite Dangerous events aloud and exposes game data to VoiceAttack and scripts.",
+    "homepage": "https://github.com/EDCD/EDDI",
+    "license": {
+        "identifier": "Apache-2.0"
+    },
+    "innosetup": true,
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/EDCD/EDDI/releases/download/Release%2F5.0.5/EDDI-5.0.5.exe",
+            "hash": "76493f575e8e773aa16921ee446816a5af4ae5c49e74541cc6e334f39e04a369"
+        }
+    },
+    "shortcuts": [
+        [
+            "Eddi.exe",
+            "..\\Elite Dangerous Tools\\EDDI"
+        ]
+    ],
+    "checkver": {
+        "url": "https://api.github.com/repos/EDCD/EDDI/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^Release/([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/EDCD/EDDI/releases/download/Release%2F$version/EDDI-$version.exe"
+            }
+        }
+    },
+    "notes": "The EDDI VoiceAttack plugin is not installed by this manifest. Settings live in %AppData%\\EDDI."
+}

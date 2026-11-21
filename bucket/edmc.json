@@ -1,5 +1,5 @@
 {
-    "version": "5.13.3",
+    "version": "6.1.2",
     "description": "Elite: Dangerous Market Connector downloads commodity market and other station data from the game Elite: Dangerous for use with all popular online and offline trading tools.",
     "homepage": "https://github.com/EDCD/EDMarketConnector",
     "license": {
@@ -8,8 +8,8 @@
     "innosetup": true,
     "architecture": {
         "64bit": {
-            "url": "https://github.com/EDCD/EDMarketConnector/releases/download/Release%2F5.13.3/EDMarketConnector_Installer_5.13.3.exe",
-            "hash": "4b40428a234fedff6aa048970415b3317844f3f801198de81cc175a698fd83a9"
+            "url": "https://github.com/EDCD/EDMarketConnector/releases/download/Release%2F6.1.2/EDMarketConnector_Installer_6.1.2_x64.exe",
+            "hash": "071908c939d65966fc8d54db3204cc5b12adb6fa98fd17c50b3ce3b44446ad50"
         }
     },
     "shortcuts": [
@@ -24,13 +24,14 @@
         ]
     ],
     "checkver": {
-        "url": "https://github.com/EDCD/EDMarketConnector",
-        "regex": "/releases/tag/Release%2F?([\\d.]+[\\-a-z]*)"
+        "url": "https://api.github.com/repos/EDCD/EDMarketConnector/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^Release/([\\d.]+)"
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/EDCD/EDMarketConnector/releases/download/Release%2F$version/EDMarketConnector_Installer_$version.exe"
+                "url": "https://github.com/EDCD/EDMarketConnector/releases/download/Release%2F$version/EDMarketConnector_Installer_$version_x64.exe"
             }
         }
     }

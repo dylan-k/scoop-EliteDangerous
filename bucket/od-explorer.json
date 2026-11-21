@@ -18,8 +18,9 @@
     ],
     "persist": "Data",
     "checkver": {
-        "url": "https://github.com/WarmedxMints/OD-Explorer/",
-        "regex": "/releases/tag/(?:v|V)?([\\d.]+[\\-a-z]*)"
+        "url": "https://api.github.com/repos/WarmedxMints/OD-Explorer/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^(?:v|V)?([\\d.]+[\\-a-z]*)"
     },
     "autoupdate": {
         "architecture": {

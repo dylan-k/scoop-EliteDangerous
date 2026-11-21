@@ -1,0 +1,36 @@
+{
+    "version": "1.4.3",
+    "description": "EDMC plugin: Red Star Eliminator for EDSM.",
+    "homepage": "https://github.com/Thurion/EDSM-RSE-for-EDMC",
+    "license": "Unknown",
+    "depends": "edmc",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Thurion/EDSM-RSE-for-EDMC/releases/download/ver_1.4.3/EDSM-RSE.zip",
+            "hash": "805a7be14219e79ad8ce28b6d84dc9c5337db3886720c6d949ed3374c820d0b2",
+            "extract_dir": "EDSM-RSE"
+        }
+    },
+    "installer": {
+        "script": [
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDSM-RSE\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDSM-RSE\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
+    },
+    "uninstaller": {
+        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDSM-RSE\" -Recurse -Force -ErrorAction SilentlyContinue"
+    },
+    "checkver": {
+        "url": "https://api.github.com/repos/Thurion/EDSM-RSE-for-EDMC/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^ver_([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Thurion/EDSM-RSE-for-EDMC/releases/download/ver_$version/EDSM-RSE.zip",
+                "extract_dir": "EDSM-RSE"
+            }
+        }
+    }
+}

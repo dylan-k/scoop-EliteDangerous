@@ -1,0 +1,33 @@
+{
+    "version": "20.0.6",
+    "description": "EDDiscovery: journal explorer, 3D star map and captain's log for Elite Dangerous (portable).",
+    "homepage": "https://github.com/EDDiscovery/EDDiscovery",
+    "license": {
+        "identifier": "Apache-2.0"
+    },
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/EDDiscovery/EDDiscovery/releases/download/Release_20.0.6/EDDiscovery.Portable.20.0.6.zip",
+            "hash": "1c401f92b013b536f47d2f11f3ff9487f664ec27169dfe3f6316ae6ae6d52720"
+        }
+    },
+    "shortcuts": [
+        [
+            "EDDiscovery.exe",
+            "..\\Elite Dangerous Tools\\EDDiscovery"
+        ]
+    ],
+    "persist": "Data",
+    "checkver": {
+        "url": "https://api.github.com/repos/EDDiscovery/EDDiscovery/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "^Release_([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/EDDiscovery/EDDiscovery/releases/download/Release_$version/EDDiscovery.Portable.$version.zip"
+            }
+        }
+    }
+}
