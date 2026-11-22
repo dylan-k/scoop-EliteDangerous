@@ -13,12 +13,26 @@
     },
     "installer": {
         "script": [
+            "# Copy the release over the plugin folder: replaces the plugin's files, keeps files it doesn't ship (your data).",
             "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Force | Out-Null",
             "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Recurse -Force -Exclude manifest.json,install.json"
         ]
     },
     "uninstaller": {
-        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\" -Recurse -Force -ErrorAction SilentlyContinue"
+        "script": [
+            "# Scoop runs this on update and on uninstall alike. It removes only the files this version shipped,",
+            "# so data the plugin keeps in its folder (settings, databases, routes) survives both.",
+            "$plugin = \"$env:LocalAppData\\EDMarketConnector\\plugins\\HITS\"",
+            "Get-ChildItem -LiteralPath $dir -Recurse -File -Exclude manifest.json,install.json | ForEach-Object {",
+            "    Remove-Item -LiteralPath (Join-Path $plugin $_.FullName.Substring($dir.Length + 1)) -Force -ErrorAction SilentlyContinue",
+            "}",
+            "# Then remove folders left empty, deepest first.",
+            "if (Test-Path -LiteralPath $plugin) {",
+            "    Get-ChildItem -LiteralPath $plugin -Recurse -Directory | Sort-Object { $_.FullName.Length } -Descending |",
+            "        Where-Object { -not (Get-ChildItem -LiteralPath $_.FullName -Force) } | Remove-Item -Force",
+            "    if (-not (Get-ChildItem -LiteralPath $plugin -Force)) { Remove-Item -LiteralPath $plugin -Force }",
+            "}"
+        ]
     },
     "checkver": {
         "url": "https://api.github.com/repos/inorton/EDMCHits/releases/latest",

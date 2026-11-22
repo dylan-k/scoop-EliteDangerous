@@ -7,7 +7,8 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/canonn-science/EDMC-Canonn/archive/refs/tags/7.8.0.zip",
-            "hash": "041f040befc48029fa9b3b7beeeb58e17abc7be42169a5e2245754b44a96d43d"
+            "hash": "041f040befc48029fa9b3b7beeeb58e17abc7be42169a5e2245754b44a96d43d",
+            "extract_dir": "EDMC-Canonn-7.8.0"
         }
     },
     "checkver": {
@@ -16,15 +17,33 @@
         "regex": "^([\\d.]+[\\-a-z]*)"
     },
     "installer": {
-        "script": "Copy-Item -Path \"$dir\\EDMC-Canonn-$version\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\" -Recurse -Force -ErrorAction SilentlyContinue"
+        "script": [
+            "# Copy the release over the plugin folder: replaces the plugin's files, keeps files it doesn't ship (your data).",
+            "New-Item -ItemType Directory -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\" -Force | Out-Null",
+            "Copy-Item -Path \"$dir\\*\" -Destination \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\" -Recurse -Force -Exclude manifest.json,install.json"
+        ]
     },
     "uninstaller": {
-        "script": "Remove-Item -Path \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\" -Recurse -Force -ErrorAction SilentlyContinue"
+        "script": [
+            "# Scoop runs this on update and on uninstall alike. It removes only the files this version shipped,",
+            "# so data the plugin keeps in its folder (settings, databases, routes) survives both.",
+            "$plugin = \"$env:LocalAppData\\EDMarketConnector\\plugins\\EDMC-Canonn\"",
+            "Get-ChildItem -LiteralPath $dir -Recurse -File -Exclude manifest.json,install.json | ForEach-Object {",
+            "    Remove-Item -LiteralPath (Join-Path $plugin $_.FullName.Substring($dir.Length + 1)) -Force -ErrorAction SilentlyContinue",
+            "}",
+            "# Then remove folders left empty, deepest first.",
+            "if (Test-Path -LiteralPath $plugin) {",
+            "    Get-ChildItem -LiteralPath $plugin -Recurse -Directory | Sort-Object { $_.FullName.Length } -Descending |",
+            "        Where-Object { -not (Get-ChildItem -LiteralPath $_.FullName -Force) } | Remove-Item -Force",
+            "    if (-not (Get-ChildItem -LiteralPath $plugin -Force)) { Remove-Item -LiteralPath $plugin -Force }",
+            "}"
+        ]
     },
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/canonn-science/EDMC-Canonn/archive/refs/tags/$version.zip"
+                "url": "https://github.com/canonn-science/EDMC-Canonn/archive/refs/tags/$version.zip",
+                "extract_dir": "EDMC-Canonn-$version"
             }
         }
     }
